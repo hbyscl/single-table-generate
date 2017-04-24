@@ -1,17 +1,11 @@
 package com.cheng.devtool;
 
 import org.mybatis.generator.api.MyBatisGenerator;
-import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
-import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,19 +16,16 @@ import java.util.List;
  */
 public class GeneratorEntity {
 
-    public static void run(){
+    public static void run() throws Exception {
+        GeneratorMyBatisXml.run();
         List<String> warnings = new ArrayList<>();
         MyBatisGenerator myBatisGenerator = null;
         Configuration configuration = null;
         ConfigurationParser parser = new ConfigurationParser(warnings);
         DefaultShellCallback callback = new DefaultShellCallback(true);
-        try {
-            File file = new File(GeneratorEntity.class.getResource("/mybatisGenerator.xml").toURI());
-            configuration = parser.parseConfiguration(file);
-            myBatisGenerator = new MyBatisGenerator(configuration,callback,warnings);
-            myBatisGenerator.generate(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        File file = new File(GeneratorEntity.class.getResource("/mybatisGenerator.xml").toURI());
+        configuration = parser.parseConfiguration(file);
+        myBatisGenerator = new MyBatisGenerator(configuration, callback, warnings);
+        myBatisGenerator.generate(null);
     }
 }

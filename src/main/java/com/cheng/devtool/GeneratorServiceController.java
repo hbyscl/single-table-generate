@@ -12,7 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author li.cheng
@@ -21,37 +23,21 @@ import java.util.List;
  */
 public class GeneratorServiceController {
     public static void main(String[] args) throws Exception {
-        String project = PropertiesUtil.getProperties("project");
-        String entity = PropertiesUtil.getProperties("entity_package");
+        GeneratorEntity.run();
+        String project = PropertiesUtil.getProperties("project.path");
+        String entity = PropertiesUtil.getProperties("project.package")+".entity";
 
         File file = new File(project + "/" + entity.replace(".", "/"));
         File[] entityJavaFiles = file.listFiles((dir, name) -> !name.endsWith("Example.java"));
-        JavaCompiler jc = ToolProvider.getSystemJavaCompiler();
-        StandardJavaFileManager fileManager = jc.getStandardFileManager(null, null, null);
-        List<Path> clzList = new ArrayList<>();
-        for (File javaFile : entityJavaFiles) {
-            Path clzFile = Paths.get(javaFile.getPath().replace(".java", ".class"));
-            if(Files.exists(clzFile)){
-                Files.delete(clzFile);
-            }
-            Thread.sleep(3000);
-            Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(javaFile);
-            JavaCompiler.CompilationTask cTask = jc.getTask(null, fileManager, null, null, null, fileObjects);
-            cTask.call();
+        for (File entityJavaFile : entityJavaFiles) {
 
-            clzList.add(clzFile);
-        }
-        fileManager.close();
-
-        for (Path path : clzList) {
-            try {
-                URLClassLoader loader = new URLClassLoader(new URL[]{path.toUri().toURL()});
-                Class<?> clz = loader.loadClass(path.getFileName().toString().replace(".class", ""));
-                System.out.println("clz.getName() = " + clz.getName());
-                loader.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            List<String> filedList = Files.readAllLines(entityJavaFile.toPath())
+                    .stream().filter(s -> s.trim().startsWith("private "))
+                    .map(s->s.trim().replaceAll("private ","").replaceAll(";",""))
+                    .collect(Collectors.toList());
+            filedList.forEach(System.out::println);
         }
     }
+
+
 }
