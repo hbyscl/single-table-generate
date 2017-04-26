@@ -1,5 +1,9 @@
 package com.cheng.devtool;
 
+import com.cheng.devtool.mybatis.GeneratorEntity;
+import com.cheng.devtool.template.FreemarkerFactory;
+import com.cheng.devtool.util.PropertiesUtil;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -47,7 +51,7 @@ public class GeneratorService {
             String $entityObj = $entity.substring(0, 1).toLowerCase() + $entity.substring(1);
             var.put("entityObj", $entityObj);
             setPk($entity,var);
-            FreemarkerUtil.write("Service.ftl",var,
+            FreemarkerFactory.write("Service.ftl",var,
                     project + "/" + $package.replace(".", "/")+"/service/basic/"+$entity+"Service.java");
         }
     }

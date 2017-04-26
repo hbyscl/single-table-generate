@@ -1,14 +1,10 @@
-package com.cheng.devtool;
+package com.cheng.devtool.template;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -16,7 +12,7 @@ import java.util.Map;
  * @author li.cheng
  * @version 1.0.0 2017年04月25日
  */
-public class FreemarkerUtil {
+public class FreemarkerFactory {
 
     private static Configuration configuration;
 
@@ -26,7 +22,7 @@ public class FreemarkerUtil {
         configuration.setDefaultEncoding("utf-8");
         configuration.setEncoding(Locale.CHINA, "utf-8");
         configuration.setDirectoryForTemplateLoading(
-                new File(FreemarkerUtil.class.getResource("/template").toURI())
+                new File(FreemarkerFactory.class.getResource("/template").toURI())
         );
     }
 

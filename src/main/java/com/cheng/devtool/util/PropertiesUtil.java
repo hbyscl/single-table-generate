@@ -1,4 +1,4 @@
-package com.cheng.devtool;
+package com.cheng.devtool.util;
 
 import java.util.ResourceBundle;
 

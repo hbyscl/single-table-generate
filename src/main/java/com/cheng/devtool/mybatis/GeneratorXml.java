@@ -1,5 +1,6 @@
-package com.cheng.devtool;
+package com.cheng.devtool.mybatis;
 
+import com.cheng.devtool.util.PropertiesUtil;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
@@ -8,7 +9,6 @@ import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultAttribute;
 import org.dom4j.tree.DefaultElement;
 
-import javax.print.Doc;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -21,11 +21,11 @@ import java.util.List;
  * @version 1.0.0 2017年04月24日
  * @since soter 1.0.0
  */
-public class GeneratorMyBatisXml {
+public class GeneratorXml {
 
     private static Document initDocument() throws Exception{
         SAXReader reader = new SAXReader();
-        URI uri = GeneratorMyBatisXml.class.getResource("/mybatisGenerator.xml").toURI();
+        URI uri = GeneratorXml.class.getResource("/mybatisGenerator.xml").toURI();
         File file = new File(uri);
         Document document = reader.read(file);
         Element root = document.getRootElement();
@@ -53,7 +53,7 @@ public class GeneratorMyBatisXml {
     private static void writeDocument(Document document) throws Exception{
 
         OutputStream outputStream = new FileOutputStream(new File(
-                GeneratorMyBatisXml.class.getResource("/mybatisGenerator.xml").toURI()
+                GeneratorXml.class.getResource("/mybatisGenerator.xml").toURI()
 //                System.getProperty("user.dir") + "/src/main/resources/mybatisGenerator.xml"
         ));
 

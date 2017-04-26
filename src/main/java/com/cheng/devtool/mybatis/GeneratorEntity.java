@@ -1,4 +1,4 @@
-package com.cheng.devtool;
+package com.cheng.devtool.mybatis;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -17,7 +17,7 @@ import java.util.List;
 public class GeneratorEntity {
 
     public static void run() throws Exception {
-        GeneratorMyBatisXml.run();
+        GeneratorXml.run();
         List<String> warnings = new ArrayList<>();
         MyBatisGenerator myBatisGenerator = null;
         Configuration configuration = null;
