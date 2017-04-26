@@ -14,11 +14,12 @@ public class EntityAnalyzer {
     public static List<EntityMeta> build() {
         DBTool dbTool = new DBTool();
         List<EntityMeta> metas = dbTool.getData();
+        System.out.println("EntityAnalyzer.build.run");
         String entityPath = Config.getEntityPath();
         for (EntityMeta meta : metas) {
             meta.setPackageName(Config.getPackage());
             String flatName = meta.getFlatName();
-            meta.setPackageName(JavaFile.getClassName(entityPath, flatName));
+            meta.setPascalName(JavaFile.getClassName(entityPath, flatName));
 
             List<FieldMeta> fieldList = meta.getFieldList();
 
@@ -41,12 +42,8 @@ public class EntityAnalyzer {
                 }
             }
         }
-
+        System.out.println("EntityAnalyzer.build.done");
         return metas;
     }
 
-    public static void main(String[] args) {
-        List<EntityMeta> build = EntityAnalyzer.build();
-        System.out.println("build = " + build);
-    }
 }

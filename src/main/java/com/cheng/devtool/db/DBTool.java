@@ -17,6 +17,7 @@ import java.util.Properties;
 public class DBTool {
 
     public List<EntityMeta> getData() {
+        System.out.println("DBTool.getData.run");
         Connection con = null;
         ResultSet rs = null;
         List<EntityMeta> entityMetaList = null;
@@ -62,7 +63,7 @@ public class DBTool {
             close(rs);
             close(con);
         }
-
+        System.out.println("DBTool.getData.done");
         return entityMetaList;
     }
 

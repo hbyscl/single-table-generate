@@ -18,6 +18,7 @@ public class GeneratorEntity {
 
     public static void run() throws Exception {
         GeneratorXml.run();
+        System.out.println("GeneratorEntity.run");
         List<String> warnings = new ArrayList<>();
         MyBatisGenerator myBatisGenerator = null;
         Configuration configuration = null;
@@ -27,5 +28,6 @@ public class GeneratorEntity {
         configuration = parser.parseConfiguration(file);
         myBatisGenerator = new MyBatisGenerator(configuration, callback, warnings);
         myBatisGenerator.generate(null);
+        System.out.println("GeneratorEntity.done");
     }
 }

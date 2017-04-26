@@ -1,11 +1,11 @@
-package ${package}.service.basic;
+package ${packageName}.service.basic;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import ${package}.dao.basic.${entity}Mapper;
-import ${package}.entity.${entity};
-import ${package}.entity.${entity}Example;
-import ${package}.util.BeanEntityHelper;
+import ${packageName}.dao.basic.${pascalName}Mapper;
+import ${packageName}.entity.${pascalName};
+import ${packageName}.entity.${pascalName}Example;
+import ${packageName}.util.BeanEntityHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,44 +18,44 @@ import java.util.List;
  * @since soter 1.0.0
  */
 @Service
-public class ${entity}Service {
+public class ${pascalName}Service {
     @Autowired
-    private ${entity}Mapper mapper;
+    private ${pascalName}Mapper mapper;
 
-    public ${entity} add${entity}(${entity} ${entityObj}) {
-        ${entityObj}.setCreateTime(new Date());
-        mapper.insert(${entityObj});
-        return ${entityObj};
+    public ${pascalName} add${pascalName}(${pascalName} ${humpName}) {
+        ${humpName}.setCreateTime(new Date());
+        mapper.insert(${humpName});
+        return ${humpName};
     }
 
-    public boolean delete${entity}(${pkType} ${pk}) {
-        return mapper.deleteByPrimaryKey(${pk}) > 0;
+    public boolean delete${pascalName}(${pk.type} ${pk.humpName}) {
+        return mapper.deleteByPrimaryKey(${pk.humpName}) > 0;
     }
 
-    public ${entity} update${entity}(${entity} ${entityObj}) {
-        ${entityObj}.setUpdateTime(new Date());
-        ${entity} old = mapper.selectByPrimaryKey(${entityObj}.get${pkUp}());
-        BeanEntityHelper.copyNotNull(${entityObj}, old);
+    public ${pascalName} update${pascalName}(${pascalName} ${humpName}) {
+        ${humpName}.setUpdateTime(new Date());
+        ${pascalName} old = mapper.selectByPrimaryKey(${humpName}.get${pk.pascalName}());
+        BeanEntityHelper.copyNotNull(${humpName}, old);
         mapper.updateByPrimaryKey(old);
-        return ${entityObj};
+        return ${humpName};
     }
 
-    public ${entity} get${entity}(${pkType} ${pk}) {
-        return mapper.selectByPrimaryKey(${pk});
+    public ${pascalName} get${pascalName}(${pk.type} ${pk.humpName}) {
+        return mapper.selectByPrimaryKey(${pk.humpName});
     }
 
-    public PageInfo<${entity}> query${entity}(${entity} ${entityObj}, int pageNum, int pageSize) {
+    public PageInfo<${pascalName}> query${pascalName}(${pascalName} ${humpName}, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        ${entity}Example example = new ${entity}Example();
-        ${entity}Example.Criteria criteria = example.createCriteria();
+        ${pascalName}Example example = new ${pascalName}Example();
+        ${pascalName}Example.Criteria criteria = example.createCriteria();
 
-        <#list fields as field>
-        if (null != ${entityObj}.get${field}()) {
-            criteria.and${field}EqualTo(${entityObj}.get${field}());
+        <#list fieldList as field>
+        if (null != ${humpName}.get${field.pascalName}()) {
+            criteria.and${field.pascalName}EqualTo(${humpName}.get${field.pascalName}());
         }
         </#list>
 
-        List<${entity}> ${entityObj}s = mapper.selectByExample(example);
-        return new PageInfo<>(${entityObj}s);
+        List<${pascalName}> ${humpName}s = mapper.selectByExample(example);
+        return new PageInfo<>(${humpName}s);
     }
 }

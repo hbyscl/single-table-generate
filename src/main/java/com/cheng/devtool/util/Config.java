@@ -1,7 +1,9 @@
 package com.cheng.devtool.util;
 
-import com.cheng.devtool.util.PropertiesUtil;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,37 +14,56 @@ import java.util.stream.Stream;
  */
 public class Config {
 
-    public static String getProjectPath(){
+    public static String getProjectPath() {
         return PropertiesUtil.getProperties("project.path");
     }
 
-    public static String getEntityPath(){
-        return getPackagePath()+"entity/";
+    public static String getEntityPath() {
+        return getPackagePath() + "entity/";
     }
 
-    public static String getDaoPath(){
-        return getPackagePath()+"dao/basic/";
+    public static String getDaoPath() {
+        return getPackagePath() + "dao/basic/";
     }
 
-    public static String getServicePath(){
-        return getPackagePath()+"service/basic/";
+    public static String getServicePath() {
+        String s = getPackagePath() + "service/basic/";
+        Path path = Paths.get(s);
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return s;
     }
 
-    public static String getControllerPath(){
-        return getPackagePath()+"controller/";
+    public static String getControllerPath() {
+        String s = getPackagePath() + "controller/";
+        Path path = Paths.get(s);
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return s;
     }
 
-    public static String getPackage(){
+    public static String getPackage() {
         return PropertiesUtil.getProperties("project.package");
     }
 
-    public static String getPackagePath(){
-        return getProjectPath() + "/" + getPackage().replace(".", "/")+"/";
+    public static String getPackagePath() {
+        return getProjectPath() + "/" + getPackage().replace(".", "/") + "/";
     }
 
-    public static List<String> getTables(){
+    public static List<String> getTables() {
         return Stream.of(PropertiesUtil.getProperties("tables").split(","))
-                .filter(s->null != s && !"".equals(s.trim()))
+                .filter(s -> null != s && !"".equals(s.trim()))
                 .collect(Collectors.toList());
     }
 

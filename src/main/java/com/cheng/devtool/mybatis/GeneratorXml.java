@@ -70,14 +70,11 @@ public class GeneratorXml {
     }
 
     public static void run() throws Exception{
+        System.out.println("GeneratorXml.run");
         Document document = initDocument();
         addTableEl(document);
         writeDocument(document);
+        System.out.println("GeneratorXml.done");
     }
 
-    public static void main(String[] args) throws Exception {
-
-        run();
-
-    }
 }

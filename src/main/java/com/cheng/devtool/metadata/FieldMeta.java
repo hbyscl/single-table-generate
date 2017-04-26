@@ -58,7 +58,7 @@ public class FieldMeta {
         this.title = title;
     }
 
-    public boolean isPk() {
+    public boolean getIsPk() {
         return isPk;
     }
 
@@ -66,7 +66,7 @@ public class FieldMeta {
         isPk = pk;
     }
 
-    public boolean isNullable() {
+    public boolean getIsNullable() {
         return isNullable;
     }
 
@@ -74,7 +74,7 @@ public class FieldMeta {
         isNullable = nullable;
     }
 
-    public boolean isSystemField() {
+    public boolean getIsSystemField() {
         return isSystemField;
     }
 

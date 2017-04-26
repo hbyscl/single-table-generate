@@ -1,5 +1,6 @@
 package com.cheng.devtool.template;
 
+import com.cheng.devtool.metadata.FieldMeta;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
@@ -26,11 +27,11 @@ public class FreemarkerFactory {
         );
     }
 
-    public static void write(String templateName, Map<String, Object> var, String targetFile) throws Exception {
+    public static void write(String templateName, Object var, String targetFile) throws Exception {
         if (null == configuration) {
             init();
         }
-        System.out.println("var.get(\"pkUp\") = " + var.get("pkUp"));
+        System.out.println("FreemarkerFactory.write:"+targetFile);
         Template template = configuration.getTemplate(templateName);
 
         try (FileWriter out = new FileWriter(targetFile)) {
@@ -38,6 +39,11 @@ public class FreemarkerFactory {
             out.flush();
         }
 
+    }
+
+    public static void main(String[] args) throws Exception {
+        FieldMeta fieldMeta = new FieldMeta();
+        write("test.ftl",fieldMeta,"d:/a.txt");
     }
 
 }
