@@ -14,8 +14,12 @@ import java.util.stream.Stream;
  */
 public class Config {
 
-    public static String getProjectPath() {
-        return PropertiesUtil.getProperties("project.path");
+    public static String getProjectJavaPath() {
+        return PropertiesUtil.getProperties("project.path.java");
+    }
+
+    public static String getProjectTemplatesPath() {
+        return PropertiesUtil.getProperties("project.path.templates");
     }
 
     public static String getEntityPath() {
@@ -58,7 +62,7 @@ public class Config {
     }
 
     public static String getPackagePath() {
-        return getProjectPath() + "/" + getPackage().replace(".", "/") + "/";
+        return getProjectJavaPath() + "/" + getPackage().replace(".", "/") + "/";
     }
 
     public static List<String> getTables() {

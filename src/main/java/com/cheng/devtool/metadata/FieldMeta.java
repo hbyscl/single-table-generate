@@ -51,7 +51,7 @@ public class FieldMeta {
     }
 
     public String getTitle() {
-        return title;
+        return null == title || "".equals(title.trim()) ? getPascalName():title;
     }
 
     public void setTitle(String title) {

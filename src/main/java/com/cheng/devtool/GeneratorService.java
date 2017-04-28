@@ -6,7 +6,9 @@ import com.cheng.devtool.mybatis.GeneratorEntity;
 import com.cheng.devtool.template.FreemarkerFactory;
 import com.cheng.devtool.util.Config;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author li.cheng
@@ -30,7 +32,18 @@ public class GeneratorService {
                     entityMeta.getPascalName()+"Service.java");
             FreemarkerFactory.write("Controller.ftl",entityMeta, Config.getControllerPath()+
                     entityMeta.getPascalName()+"Controller.java");
+
+            String templatesDir = Config.getProjectTemplatesPath() +
+                    entityMeta.getFlatName() + "/";
+            FreemarkerFactory.write("list.ftl",entityMeta, templatesDir + "list.ftl");
+            FreemarkerFactory.write("add.ftl",entityMeta, templatesDir+ "add.ftl");
+            FreemarkerFactory.write("edit.ftl",entityMeta, templatesDir+ "edit.ftl");
+            FreemarkerFactory.write("view.ftl",entityMeta, templatesDir+ "view.ftl");
         }
+        Map<String,Object> t = new HashMap<>();
+        t.put("l",entityMetas);
+        FreemarkerFactory.write("menu.ftl",t, Config.getProjectTemplatesPath()+
+                "menu.ftl");
         System.out.println("GeneratorService.done");
     }
 

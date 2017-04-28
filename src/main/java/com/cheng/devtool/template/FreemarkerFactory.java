@@ -6,6 +6,8 @@ import freemarker.template.Template;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,6 +33,7 @@ public class FreemarkerFactory {
         if (null == configuration) {
             init();
         }
+        Files.createDirectories(Paths.get(targetFile.substring(0,targetFile.lastIndexOf("/"))));
         System.out.println("FreemarkerFactory.write:"+targetFile);
         Template template = configuration.getTemplate(templateName);
 
