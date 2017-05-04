@@ -5,7 +5,7 @@
             <#if field.isPk == false>
                 <tr>
                     <td>${field.title}：</td>
-                    <td style="width: 90%">${r"${"}name!}</td>
+                    <td style="width: 90%">${r"${bean."}${field.humpName}!}</td>
                 </tr>
             </#if>
         </#list>

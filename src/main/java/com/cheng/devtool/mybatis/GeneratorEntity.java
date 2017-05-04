@@ -1,12 +1,15 @@
 package com.cheng.devtool.mybatis;
 
+import com.cheng.devtool.util.Config;
 import org.mybatis.generator.api.MyBatisGenerator;
-import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,41 +31,38 @@ public class GeneratorEntity {
         File file = new File(GeneratorEntity.class.getResource("/mybatisGenerator.xml").toURI());
         configuration = parser.parseConfiguration(file);
         myBatisGenerator = new MyBatisGenerator(configuration, callback, warnings);
-        myBatisGenerator.generate(new ProgressCallback() {
-            @Override
-            public void introspectionStarted(int i) {
-
-            }
-
-            @Override
-            public void generationStarted(int i) {
-
-            }
-
-            @Override
-            public void saveStarted(int i) {
-
-            }
-
-            @Override
-            public void startTask(String s) {
-                System.out.println("GeneratorEntity.startTask");
-            }
-
-            @Override
-            public void done() {
-
-            }
-
-            @Override
-            public void checkCancel() throws InterruptedException {
-
-            }
-        });
+        myBatisGenerator.generate(null);
         System.out.println("GeneratorEntity.done");
+
+        addAtMapper();
     }
 
-    public static void main(String[] args) throws Exception{
+    private static void addAtMapper() {
+        File mapperDir = new File(Config.getDaoPath());
+        List<String> tables = Config.getTables();
+        File[] mappers = mapperDir.listFiles((dir, name) ->
+                tables.contains(
+                        name.replaceAll("Mapper.java", "").toLowerCase()
+                )
+        );
+        for (File mapper : mappers) {
+            try {
+                List<String> codes = new ArrayList<>();
+                Path path = mapper.toPath();
+                Files.readAllLines(path).forEach(s->{
+                    if(s.startsWith("public interface ")){
+                        codes.add("@org.apache.ibatis.annotations.Mapper");
+                    }
+                    codes.add(s);
+                });
+                Files.write(path,codes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
         run();
     }
 }

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <form id="securityAddForm">
+        <form id="${humpName}AddForm">
             <div class="modal-body">
             <#list fieldList as field>
                 <#if field.isPk == false && field.isSystemField == false>
@@ -26,7 +26,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    function ${humpName} Save() {
+    function ${humpName}Save() {
         $("span").remove(".errorClass");
         $("br").remove(".errorClass");
         var status = 1;
@@ -42,8 +42,17 @@
         if (status == 0) {
             return;
         } else {
-            $("#lgModal").modal('hide');
-            alertMsg("添加成功", "success");
+            $.ajax({
+                url: '${r"$"}{ctx}/sys/${flatName}/save',
+                type: 'post',
+                dataType: 'text',
+                data: $("#${humpName}AddForm").serialize(),
+                success: function (data) {
+                    $("#lgModal").modal('hide');
+                    alertMsg("添加成功","success");
+                    reloadTable();
+                }
+            });
         }
     }
 </script>

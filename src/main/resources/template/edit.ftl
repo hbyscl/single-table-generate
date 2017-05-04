@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <form id="securityAddForm">
+        <form id="${humpName}EditForm">
             <input type="hidden" id="${pk.humpName}" name="${pk.humpName}" value=${r"${"}.${pk.humpName}}>
             <div class="modal-body">
 
@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <label id="${field.humpName}Label">名称</label>
                         <input type="text" class="form-control" name="${field.humpName}" id="${field.humpName}"
-                               value=${r"${"}${field.humpName}!} disabled placeholder="输入${field.title}...">
+                               value=${r"${bean."}${field.humpName}!} disabled placeholder="输入${field.title}...">
                     </div>
                 </#if>
             </#list>
@@ -42,8 +42,17 @@
         </#if>
     </#list>
         if (status> 0) {
-            $("#lgModal").modal('hide');
-            alertMsg("修改成功", "success");
+            $.ajax({
+                url: '${r"$"}{ctx}/sys/${flatName}/update',
+                type: 'post',
+                dataType: 'text',
+                data: $("#${humpName}EditForm").serialize(),
+                success: function (data) {
+                    $("#lgModal").modal('hide');
+                    alertMsg("修改成功", "success");
+                    reloadTable();
+                }
+            });
         }
     }
 </script>

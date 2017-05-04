@@ -30,6 +30,10 @@ public class GeneratorService {
         for (EntityMeta entityMeta : entityMetas) {
             FreemarkerFactory.write("Service.ftl",entityMeta, Config.getServicePath()+
                     entityMeta.getPascalName()+"Service.java");
+
+            FreemarkerFactory.write("ServiceImpl.ftl",entityMeta, Config.getServiceImplPath()+
+                    entityMeta.getPascalName()+"ServiceImpl.java");
+
             FreemarkerFactory.write("Controller.ftl",entityMeta, Config.getControllerPath()+
                     entityMeta.getPascalName()+"Controller.java");
 

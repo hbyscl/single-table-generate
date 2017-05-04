@@ -31,7 +31,20 @@ public class Config {
     }
 
     public static String getServicePath() {
-        String s = getPackagePath() + "service/basic/";
+        String s = getPackagePath() + "service/";
+        Path path = Paths.get(s);
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return s;
+    }
+
+    public static String getServiceImplPath(){
+        String s = getServicePath() + "impl/";
         Path path = Paths.get(s);
         if (!Files.exists(path)) {
             try {

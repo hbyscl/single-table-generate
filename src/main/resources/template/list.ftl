@@ -5,7 +5,7 @@
                 <h3 class="box-title">${title}管理</h3>
                 <div class="box-tools pull-right">
                     <a onclick="${humpName}ToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg"
-                       title="123" href="/${flatName}/add">添加</a>
+                       title="添加" href="/sys/${flatName}/add">添加</a>
                 </div>
             </div>
             <div class="box-body">
@@ -52,7 +52,37 @@
             "serverSide": true, //启用服务器端分页
             "bInfo": false,
             "language": {"url": "plugins/datatables/language.json"},
-            "ajax": {"url": "/${flatName}/page", "type": "post"},
+            ajax: function (data, callback, settings) {
+                var params = {
+                    pageNum: data.start,
+                    pageSize: data.length
+                };
+                //ajax配置为function,手动调用异步查询
+                $.ajax({
+                    type: "GET",
+                    url: "/sys/${flatName}/page",
+                    cache: false, //禁用缓存
+                    data: params, //传入已封装的参数
+                    dataType: "json",
+                    success: function (res) {
+                        //封装返回数据，这里仅演示了修改属性名
+                        var returnData = {};
+
+                        returnData.draw = res.data.draw;//这里直接自行返回了draw计数器,应该由后台返回
+                        returnData.recordsTotal = res.data.total;
+                        returnData.recordsFiltered = res.data.total;//后台不实现过滤功能，每次查询均视作全部结果
+                        returnData.data = res.data.list;
+                        //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+                        //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+                        callback(returnData);
+                    },
+                    error: function (XMLHttpRequest,
+                                     textStatus,
+                                     errorThrown) {
+                        alertMsg("查询失败","error");
+                    }
+                });
+            },
             "columns": [
                 {"data": null},
                 <#list fieldList as field>
@@ -90,11 +120,11 @@
         });
     });
 
-    function ${humpName} Reload() {
+    function ${humpName}Reload() {
         reloadTable(${humpName}_tab, "", "#${humpName}Premise");
     }
 
-    function ${humpName} ToListAjax() {
+    function ${humpName}ToListAjax() {
         list_ajax = ${humpName}_tab;
         console.log(list_ajax);
     }
