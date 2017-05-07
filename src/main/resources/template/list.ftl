@@ -3,10 +3,7 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">${title}管理</h3>
-                <div class="box-tools pull-right">
-                    <a onclick="${humpName}ToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg"
-                       title="添加" href="/sys/${flatName}/add">添加</a>
-                </div>
+
             </div>
             <div class="box-body">
                 <div class="clearfix">
@@ -17,12 +14,15 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" onclick="${humpName}Reload();" class="btn btn-primary">搜索</button>
+                        <button type="submit" onclick="${humpName}Reload();" class="btn btn-primary"><i class="fa fa-search"/>搜索</button>
+                    </div>
+                    <div class="box-tools pull-right">
+                        <a onclick="${humpName}ToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg"
+                           title="添加" href="/sys/${flatName}/add"><i class="fa fa-plus"/> 添加</a>
                     </div>
                 </div>
-                <table id="${humpName}_tab" class="table table-bordered table-striped">
+                <table id="${humpName}_tab" class="table table-bordered table-striped" style="margin-top: 10px;">
                     <thead>
-                    <tr>
                     <tr>
                         <th>序号</th>
                         <#list fieldList as field>
@@ -31,7 +31,6 @@
                             </#if>
                         </#list>
                         <th>操作</th>
-                    </tr>
                     </tr>
                     </thead>
                 </table>
@@ -87,7 +86,7 @@
                 {"data": null},
                 <#list fieldList as field>
                     <#if field.isPk == false>
-                {"data": ${field.humpName},
+                {"data": "${field.humpName}"},
                     </#if>
                 </#list>
                 {"data": null}

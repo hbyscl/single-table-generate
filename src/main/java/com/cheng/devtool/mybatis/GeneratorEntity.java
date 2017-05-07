@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author li.cheng
@@ -39,13 +40,14 @@ public class GeneratorEntity {
 
     private static void addAtMapper() {
         File mapperDir = new File(Config.getDaoPath());
-        List<String> tables = Config.getTables();
+        List<String> tables = Config.getTables().stream().map(s ->  s.replaceAll("_","")).collect(Collectors.toList());
         File[] mappers = mapperDir.listFiles((dir, name) ->
                 tables.contains(
                         name.replaceAll("Mapper.java", "").toLowerCase()
                 )
         );
         for (File mapper : mappers) {
+            System.out.println("mapper.getName() = " + mapper.getName());
             try {
                 List<String> codes = new ArrayList<>();
                 Path path = mapper.toPath();

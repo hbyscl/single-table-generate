@@ -28,7 +28,6 @@ public class ${pascalName}ServiceImpl implements ${pascalName}Service {
 
     @Override
     public Boolean add(${pascalName} bean) {
-        bean.setCreateTime(new Date());
         return mapper.insert(bean) > 0;
     }
 
@@ -39,7 +38,6 @@ public class ${pascalName}ServiceImpl implements ${pascalName}Service {
 
     @Override
     public Boolean modify(${pascalName} bean) {
-        bean.setUpdateTime(new Date());
         return mapper.updateByPrimaryKeySelective(bean) > 0;
     }
 
