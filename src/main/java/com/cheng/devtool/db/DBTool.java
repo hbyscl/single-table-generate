@@ -44,7 +44,7 @@ public class DBTool {
                         String columnName = colRs.getString("COLUMN_NAME");
                         fieldMeta.setColumnName(columnName);
                         String isNullable = colRs.getString("IS_NULLABLE");
-                        fieldMeta.setNullable("YES".equals(isNullable));
+                        fieldMeta.setNullable("NO".equals(isNullable));
                         String title = colRs.getString("REMARKS");
                         fieldMeta.setTitle(title);
                         entityMeta.addField(fieldMeta);

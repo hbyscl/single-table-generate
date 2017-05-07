@@ -21,10 +21,10 @@ public class GeneratorService {
     private static List<EntityMeta> entityMetas = null;
 
     public static void main(String[] args) throws Exception {
-        dao();
-        service();
+//        dao();
+//        service();
         page();
-        menu();
+//        menu();
     }
 
     private static void dao() throws Exception {
@@ -53,6 +53,7 @@ public class GeneratorService {
             FreemarkerFactory.write("add.ftl", entityMeta, templatesDir + "add.ftl");
             FreemarkerFactory.write("edit.ftl", entityMeta, templatesDir + "edit.ftl");
             FreemarkerFactory.write("view.ftl", entityMeta, templatesDir + "view.ftl");
+            FreemarkerFactory.write("js.ftl", entityMeta, Config.getProjectstaticPath()+"wise/" + entityMeta.getFlatName()+".js");
         }
     }
 

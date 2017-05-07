@@ -22,6 +22,10 @@ public class Config {
         return PropertiesUtil.getProperties("project.path.templates");
     }
 
+    public static String getProjectstaticPath() {
+        return PropertiesUtil.getProperties("project.path.static");
+    }
+
     public static String getEntityPath() {
         return getPackagePath() + "entity/";
     }

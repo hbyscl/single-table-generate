@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="box-body  no-padding">
+    <div class="box-body no-padding">
         <table class="table table-striped">
         <#list fieldList as field>
-            <#if field.isPk == false>
+            <#if field.isPk == false || field.type == "String">
                 <tr>
                     <td>${field.title}：</td>
                     <td style="width: 90%">${r"${bean."}${field.humpName}!}</td>
