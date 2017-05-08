@@ -17,7 +17,7 @@
                         <button type="submit" onclick="${pascalName}.reload();" class="btn btn-primary"><i class="fa fa-search"/>搜索</button>
                     </div>
                     <div class="box-tools pull-right">
-                        <a class="btn btn-sm btn-success" target="modal" modal="lg"
+                        <a class="btn btn-sm btn-success" target="modal" callback="${pascalName}.save()"
                            modal-title="添加${title}" href="/sys/${flatName}/add"><i class="fa fa-plus"/> 添加</a>
                     </div>
                 </div>

@@ -63,8 +63,8 @@ $(function () {
                 "targets": -1,
                 "data": null,
                 "render": function (data) {
-                    var btn = '<a class="btn btn-xs btn-info" target="modal" modal-title="查看${title}" modal="lg" href="/sys/${flatName}/view?id=' + data.${pk.humpName} + '">查看</a> &nbsp;'
-                    + '<a class="btn btn-xs btn-warning" target="modal" modal-title="修改${title}" modal="lg" href="/sys/${flatName}/edit?id=' + data.${pk.humpName} + '">修改</a> &nbsp;'
+                    var btn = '<a class="btn btn-xs btn-info" target="modal" modal-title="查看${title}" href="/sys/${flatName}/view?id=' + data.${pk.humpName} + '">查看</a> &nbsp;'
+                    + '<a class="btn btn-xs btn-warning" target="modal" modal-title="修改${title}" callback="${pascalName}.update()" href="/sys/${flatName}/edit?id=' + data.${pk.humpName} + '">修改</a> &nbsp;'
                     + '<a class="btn btn-xs btn-danger" callback="${pascalName}.table.ajax.reload()" data-body="确认要删除吗？" target="ajaxTodo" href="/sys/${flatName}/delete?id=' + data.${pk.humpName} + '">删除</a>';
                     return btn;
                 }
@@ -99,6 +99,9 @@ $(function () {
                 }
             });
         }
+        else{
+            return false;
+        }
     };
     ${pascalName}.update = function () {
         $("span").remove(".errorClass");
@@ -124,6 +127,9 @@ $(function () {
                     ${pascalName}.reload();
                 }
             });
+        }
+        else{
+            return false;
         }
     };
     ${pascalName}.reload = function () {

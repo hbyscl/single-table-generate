@@ -2,8 +2,6 @@
     <div class="col-md-12">
         <form id="${humpName}EditForm">
             <input type="hidden" id="${pk.humpName}" name="${pk.humpName}" value=${r"$"}{bean.${pk.humpName}}>
-            <div class="modal-body">
-
             <#list fieldList as field>
                 <#if field.isPk == false && field.isSystemField == false || field.type == "String">
                     <div class="form-group">
@@ -13,18 +11,6 @@
                     </div>
                 </#if>
             </#list>
-
-            </div>
-            <div class="modal-footer">
-                <div class="pull-right">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i
-                            class="fa fa-close"></i>关闭
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="${pascalName}.update();"><i
-                            class="fa fa-save"></i>保存
-                    </button>
-                </div>
-            </div>
         </form>
     </div>
 </div>
