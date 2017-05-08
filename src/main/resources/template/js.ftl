@@ -15,6 +15,7 @@ $(function () {
                     pageNum: data.start > 0 ? (data.start/data.length + 1) : 1,
                     pageSize: data.length
                 };
+                ${pascalName}.appendSearchParam(params);
                 //ajax配置为function,手动调用异步查询
                 $.ajax({
                     type: "GET",
@@ -33,11 +34,6 @@ $(function () {
                         //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
                         //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
                         callback(returnData);
-                    },
-                    error: function (XMLHttpRequest,
-                                     textStatus,
-                                     errorThrown) {
-                        alertMsg("查询失败","error");
                     }
                 });
             },
@@ -65,7 +61,7 @@ $(function () {
                 "render": function (data) {
                     var btn = '<a class="btn btn-xs btn-info" target="modal" modal-title="查看${title}" href="/sys/${flatName}/view?id=' + data.${pk.humpName} + '">查看</a> &nbsp;'
                     + '<a class="btn btn-xs btn-warning" target="modal" modal-title="修改${title}" callback="${pascalName}.update()" href="/sys/${flatName}/edit?id=' + data.${pk.humpName} + '">修改</a> &nbsp;'
-                    + '<a class="btn btn-xs btn-danger" callback="${pascalName}.table.ajax.reload()" data-body="确认要删除吗？" target="ajaxTodo" href="/sys/${flatName}/delete?id=' + data.${pk.humpName} + '">删除</a>';
+                    + '<a class="btn btn-xs btn-danger" callback="${pascalName}.reload()" data-body="确认要删除吗？" target="ajaxTodo" href="/sys/${flatName}/delete?id=' + data.${pk.humpName} + '">删除</a>';
                     return btn;
                 }
             }]
@@ -130,6 +126,13 @@ $(function () {
         }
         else{
             return false;
+        }
+    };
+    ${pascalName}.appendSearchParam = function (param) {
+        var field = $("#${humpName}SearchField");
+        var val = field.val();
+        if(val){
+            param[field.attr("name")] = val;
         }
     };
     ${pascalName}.reload = function () {

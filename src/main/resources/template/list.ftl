@@ -10,7 +10,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                            <input type="text" class="form-control" id="${humpName}Premise" placeholder="根据名称搜索...">
+                            <input type="text" class="form-control" id="${humpName}SearchField" name="${pk.humpName}" placeholder="根据ID搜索...">
                         </div>
                     </div>
                     <div class="col-md-4">

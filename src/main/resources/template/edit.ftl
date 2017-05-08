@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <form id="${humpName}EditForm">
+            <#if pk.type != "String">
             <input type="hidden" id="${pk.humpName}" name="${pk.humpName}" value=${r"$"}{bean.${pk.humpName}}>
+            </#if>
             <#list fieldList as field>
                 <#if field.isPk == false && field.isSystemField == false || field.type == "String">
                     <div class="form-group">
