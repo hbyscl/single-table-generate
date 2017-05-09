@@ -39,4 +39,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="wise/${flatName}.js"/>
+<script type="text/javascript" src="/wise/${flatName}.js"/>
