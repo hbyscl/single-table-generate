@@ -19,7 +19,7 @@ $(function () {
                 //ajax配置为function,手动调用异步查询
                 $.ajax({
                     type: "GET",
-                    url: "/sys/${flatName}/page",
+                    url: "/sys/${flatName}/query",
                     cache: false, //禁用缓存
                     data: params, //传入已封装的参数
                     dataType: "json",
@@ -58,12 +58,7 @@ $(function () {
             {
                 "targets": -1,
                 "data": null,
-                "render": function (data) {
-                    var btn = '<a class="btn btn-xs btn-info" target="modal" modal-title="查看${title}" href="/sys/${flatName}/view?id=' + data.${pk.humpName} + '">查看</a> &nbsp;'
-                    + '<a class="btn btn-xs btn-warning" target="modal" modal-title="修改${title}" callback="${pascalName}.update()" href="/sys/${flatName}/edit?id=' + data.${pk.humpName} + '">修改</a> &nbsp;'
-                    + '<a class="btn btn-xs btn-danger" callback="${pascalName}.reload()" data-body="确认要删除吗？" target="ajaxTodo" href="/sys/${flatName}/delete?id=' + data.${pk.humpName} + '">删除</a>';
-                    return btn;
-                }
+                "render": ${pascalName}.getOptions
             }]
     }).on('preXhr.dt', function (e, settings, data) {
             No = 0;
@@ -134,6 +129,12 @@ $(function () {
         if(val){
             param[field.attr("name")] = val;
         }
+    };
+    ${pascalName}.getOptions = function(data){
+        if(!${pascalName}.options){
+            ${pascalName}.options = $("#${humpName}Options").html();
+        }
+        return ${pascalName}.options.replace(/\#\[id\]/g,data.${pk.humpName});
     };
     ${pascalName}.reload = function () {
         ${pascalName}.table.ajax.reload();

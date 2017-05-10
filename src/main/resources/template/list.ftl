@@ -34,6 +34,12 @@
                     </tr>
                     </thead>
                 </table>
+                <#--table 操作菜单项-->
+                <div id="${humpName}Options" style="display: none">
+                    <a class="btn btn-xs btn-info" target="modal" modal-title="查看${title}" href="/sys/${flatName}/view?id=#[id]">查看</a> &nbsp;
+                    <a class="btn btn-xs btn-warning" target="modal" modal-title="修改${title}" callback="${pascalName}.update()" href="/sys/${flatName}/edit?id=#[id]">修改</a> &nbsp;
+                    <a class="btn btn-xs btn-danger" callback="${pascalName}.reload()" data-body="确认要删除吗？" target="ajaxTodo" href="/sys/${flatName}/delete?id=#[id]">删除</a>
+                </div>
             </div>
         </div>
     </div>
