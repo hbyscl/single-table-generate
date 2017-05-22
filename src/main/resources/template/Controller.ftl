@@ -27,7 +27,7 @@ public class ${pascalName}Controller extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping("page")
+    @RequestMapping("query")
     public JsonDto query(
             ${pascalName} bean,
             Integer pageNum,

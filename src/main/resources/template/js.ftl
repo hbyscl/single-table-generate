@@ -85,7 +85,7 @@ $(function () {
                 data: $("#${humpName}AddForm").serialize(),
                 success: function (data) {
                     $("#lgModal").modal('hide');
-                    alertMsg("添加成功","success");
+                    $.wise.alertMsg("添加成功","success");
                     ${pascalName}.reload();
                 }
             });
@@ -114,7 +114,7 @@ $(function () {
                 data: $("#${humpName}EditForm").serialize(),
                 success: function (data) {
                     $("#lgModal").modal('hide');
-                    alertMsg("修改成功", "success");
+                    $.wise.alertMsg("修改成功", "success");
                     ${pascalName}.reload();
                 }
             });
