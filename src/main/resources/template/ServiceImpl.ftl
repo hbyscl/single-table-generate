@@ -8,7 +8,8 @@ import ${packageName}.entity.${pascalName}Example;
 import ${packageName}.service.${pascalName}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 /**
@@ -18,6 +19,9 @@ import java.util.Date;
  */
 @Service
 public class ${pascalName}ServiceImpl implements ${pascalName}Service {
+
+    private static final Logger log = LoggerFactory.getLogger(${pascalName}ServiceImpl.class);
+
     @Autowired
     private ${pascalName}Mapper mapper;
 
