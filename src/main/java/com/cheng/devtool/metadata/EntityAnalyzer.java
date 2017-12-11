@@ -12,8 +12,7 @@ import java.util.List;
  */
 public class EntityAnalyzer {
     public static List<EntityMeta> build() {
-        DBTool dbTool = new DBTool();
-        List<EntityMeta> metas = dbTool.getData();
+        List<EntityMeta> metas = DBTool.getInstance().getData();
         System.out.println("EntityAnalyzer.build.run");
         String entityPath = Config.getEntityPath();
         for (EntityMeta meta : metas) {

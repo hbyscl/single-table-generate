@@ -16,7 +16,29 @@ import java.util.Properties;
  */
 public class DBTool {
 
+    private List<EntityMeta> data = null;
+
+    private static DBTool instance;
+
+    private DBTool(){
+
+    }
+
+    public static DBTool getInstance() {
+        synchronized (DBTool.class){
+            if(null == instance){
+                synchronized (DBTool.class){
+                    instance = new DBTool();
+                }
+            }
+        }
+        return instance;
+    }
+
     public List<EntityMeta> getData() {
+        if(null != data){
+            return data;
+        }
         System.out.println("DBTool.getData.run");
         Connection con = null;
         ResultSet rs = null;

@@ -43,7 +43,7 @@ public class FieldMeta {
 
     public void setColumnName(String columnName) {
         String lowerCase = columnName.toLowerCase();
-        if(lowerCase.equals("create_time")||lowerCase.equals("update_time")  ){
+        if("create_time".equals(lowerCase) || "update_time".equals(lowerCase)){
             this.setSystemField(true);
         }
 

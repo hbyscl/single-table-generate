@@ -2,6 +2,7 @@ package ${packageName}.controller;
 
 import ${packageName}.controller.base.BaseController;
 import ${packageName}.controller.base.JsonDto;
+import ${packageName}.controller.base.JsonPageDto;
 import ${packageName}.entity.${pascalName};
 import ${packageName}.service.${pascalName}Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version 1.0.0
  */
 @Controller
-@RequestMapping("/sys/${flatName}")
+@RequestMapping("/sys/sys/${flatName}")
 public class ${pascalName}Controller extends BaseController {
 
     @Autowired
@@ -28,14 +29,14 @@ public class ${pascalName}Controller extends BaseController {
 
     @ResponseBody
     @RequestMapping("query")
-    public JsonDto query(
+    public JsonPageDto query(
             ${pascalName} bean,
             Integer pageNum,
             Integer pageSize
     ) {
         pageNum = pageNum > 0 ? pageNum : 1;
         pageSize = pageSize >0 ? pageSize : 10;
-        return retData(service.query(bean, pageNum, pageSize));
+        return retPageData(service.query(bean, pageNum, pageSize));
     }
 
     @ResponseBody
@@ -51,7 +52,8 @@ public class ${pascalName}Controller extends BaseController {
     }
 
     @RequestMapping("add")
-    public String add() {
+    public String add(ModelMap model) {
+        model.put("bean", new ${pascalName}());
         return "${flatName}/add";
     }
 
@@ -67,7 +69,8 @@ public class ${pascalName}Controller extends BaseController {
             ModelMap model) {
         ${pascalName} bean = service.get(id);
         model.put("bean", bean);
-        return "${flatName}/edit";
+        model.put("isUpdate", "1");
+        return "${flatName}/add";
     }
 
     @ResponseBody
@@ -76,13 +79,6 @@ public class ${pascalName}Controller extends BaseController {
         return retData(service.modify(bean));
     }
 
-    @RequestMapping("view")
-    public String view(
-            ${pk.type} id,
-            ModelMap model) {
-        ${pascalName} bean = service.get(id);
-        model.put("bean", bean);
-        return "${flatName}/view";
-    }
+
 
 }

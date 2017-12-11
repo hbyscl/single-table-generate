@@ -21,9 +21,9 @@ public class GeneratorService {
     private static List<EntityMeta> entityMetas = null;
 
     public static void main(String[] args) throws Exception {
-//        dao();
+        dao();
 //        service();
-        page();
+//        page();
 //        menu();
     }
 
